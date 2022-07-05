@@ -11,9 +11,12 @@ note over selain:
 Käyttäjä kirjoittaa muistiinpanon ja painaa Tallenna
 end note
 selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over palvelin:
+Palvelin lisää muistiinpanon notes-listaan. 
+end note
 palvelin-->selain: 302
 note over palvelin:
-Uudelleenohjaus notes-osoitteeseen
+Uudelleenohjaus notes-osoitteeseen.
 end note
 selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
 palvelin-->selain: HTML-koodi
