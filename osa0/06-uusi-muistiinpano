@@ -1,0 +1,22 @@
+# https://www.websequencediagrams.com/
+# Tee vastaavanlainen kaavio, joka kuvaa mitä tapahtuu 
+# tilanteessa, missä käyttäjä luo uuden muistiinpanon 
+# ollessaan sivulla https://studies.cs.helsinki.fi/exampleapp/notes, 
+# eli kirjoittaa tekstikenttään jotain ja painaa nappia tallenna.
+
+# Kirjoita tarvittaessa palvelimella tai selaimessa tapahtuvat 
+# operaatiot sopivina kommentteina kaavion sekaan.
+
+note over selain:
+Käyttäjä kirjoittaa muistiinpanon ja painaa Tallenna
+end note
+
+note over selain:
+Selain alkaa suorittaa js-koodia
+joka luo muistiinpanon, lisää sen muistiinpanojen listaan,
+pirtää ruudun sisällön uudelleen ja lähettää muistiinpanon palvelimelle. 
+end note
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: 201
+

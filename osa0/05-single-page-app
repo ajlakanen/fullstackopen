@@ -1,22 +1,25 @@
-# https://www.websequencediagrams.com/
-# Tee vastaavanlainen kaavio, joka kuvaa mitä tapahtuu 
-# tilanteessa, missä käyttäjä luo uuden muistiinpanon 
-# ollessaan sivulla https://studies.cs.helsinki.fi/exampleapp/notes, 
-# eli kirjoittaa tekstikenttään jotain ja painaa nappia tallenna.
 
-# Kirjoita tarvittaessa palvelimella tai selaimessa tapahtuvat 
-# operaatiot sopivina kommentteina kaavion sekaan.
+# 0.5: Single Page App
+# Tee kaavio tilanteesta, jossa käyttäjä menee selaimella osoitteeseen
+# https://studies.cs.helsinki.fi/exampleapp/spa eli muistiinpanojen Single
+#  Page App-versioon
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin-->selain: spa.js
 
 note over selain:
-Käyttäjä kirjoittaa muistiinpanon ja painaa Tallenna
+selain alkaa suorittaa js-koodia
+joka pyytää JSON-datan palvelimelta
 end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{ content: "HTML on helppoa", date: "2019-01-01" }, ...]
 
 note over selain:
-Selain alkaa suorittaa js-koodia
-joka luo muistiinpanon, lisää sen muistiinpanojen listaan,
-pirtää ruudun sisällön uudelleen ja lähettää muistiinpanon palvelimelle. 
+selain suorittaa tapahtumankäsittelijän
+joka renderöi muistiinpanot näytölle
 end note
-
-selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
-palvelin-->selain: 201
-
