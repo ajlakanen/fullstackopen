@@ -43,6 +43,6 @@ const App = () => {
 };
 export default App;
 
-//      <Display counter={counter} />
+//      <Display counter={counter} /> //
 //      <Button handleClick={incByOne} text="plus" />
 //      <Button handleClick={setToZero} text="zero" />
