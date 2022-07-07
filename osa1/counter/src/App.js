@@ -7,21 +7,36 @@ const Button = ({ handleClick, text }) => (
 );
 
 const App = () => {
-  const [counter, setCounter] = useState(0);
+  const [clicks, setClicks] = useState({
+    left: 0,
+    right: 0,
+  });
 
-  const handleClick = () => {
-    console.log("clicked");
-  };
+  const handleLeftClick = () =>
+    setClicks({
+      ...clicks,
+      left: clicks.left + 1,
+    });
 
-  const incByOne = () => setCounter(counter + 1);
-  const setToZero = () => setCounter(0);
+  const handleRightClick = () =>
+    setClicks({
+      ...clicks,
+      right: clicks.right + 1,
+    });
 
   return (
     <>
-      <Display counter={counter} />
-      <Button handleClick={incByOne} text="plus" />
-      <Button handleClick={setToZero} text="zero" />
+      <div>
+        {clicks.left}
+        <button onClick={handleLeftClick}>left</button>
+        <button onClick={handleRightClick}>right</button>
+        {clicks.right}
+      </div>
     </>
   );
 };
 export default App;
+
+//      <Display counter={counter} />
+//      <Button handleClick={incByOne} text="plus" />
+//      <Button handleClick={setToZero} text="zero" />
