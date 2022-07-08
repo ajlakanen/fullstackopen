@@ -6,12 +6,29 @@ const Display = ({ text, counter, postfix }) => (
   </p>
 );
 
+const Statistics = ({ good, neutral, bad }) => (
+  <>
+    <Display text="good" counter={good}></Display>
+    <Display text="neutral" counter={neutral}></Display>
+    <Display text="bad" counter={bad}></Display>
+    <Display text="all" counter={good + neutral + bad}></Display>
+    <Display
+      text="avg"
+      counter={(good - bad) / (good + neutral + bad)}
+    ></Display>
+    <Display
+      text="positive"
+      counter={(good / (good + neutral + bad)) * 100}
+      postfix="%"
+    ></Display>
+  </>
+);
+
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
 const App = () => {
-  // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
@@ -35,19 +52,7 @@ const App = () => {
       <Button handleClick={handleNeutralClick} text="neutral"></Button>
       <Button handleClick={handleBadClick} text="bad"></Button>
       <h1>Statistics</h1>
-      <Display text="good" counter={good}></Display>
-      <Display text="neutral" counter={neutral}></Display>
-      <Display text="bad" counter={bad}></Display>
-      <Display text="all" counter={good + neutral + bad}></Display>
-      <Display
-        text="avg"
-        counter={(good - bad) / (good + neutral + bad)}
-      ></Display>
-      <Display
-        text="positive"
-        counter={(good / (good + neutral + bad)) * 100}
-        postfix="%"
-      ></Display>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </>
   );
 };
