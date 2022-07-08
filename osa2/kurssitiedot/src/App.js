@@ -7,6 +7,7 @@ const Course = ({ name, parts }) => {
     <>
       <Header name={name} />
       <Content parts={parts} />
+      Total of {parts.reduce((acc, curr) => acc + curr.exercises, 0)} exercises.
     </>
   );
 };
@@ -51,8 +52,8 @@ const App = () => {
         id: 3,
       },
       {
-        name: "Extra part",
-        exercises: 15,
+        name: "Redux",
+        exercises: 11,
         id: 4,
       },
     ],
