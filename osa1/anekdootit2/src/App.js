@@ -5,10 +5,19 @@ const Button = ({ handleClick, text }) => (
 );
 
 const MostVoted = ({ anecdotes, votes }) => {
+  const max = votes.indexOf(Math.max(...votes));
   return (
     <>
-      <div>{anecdotes[votes.indexOf(Math.max(...votes))]}</div>
-      <div>has {Math.max(...votes)} votes</div>
+      <Anecdote anecdote={anecdotes[max]} votes={votes[max]} />
+    </>
+  );
+};
+
+const Anecdote = ({ anecdote, votes }) => {
+  return (
+    <>
+      <p>{anecdote}</p>
+      <p>Has {votes} votes.</p>
     </>
   );
 };
@@ -42,7 +51,7 @@ const App = () => {
   return (
     <>
       <h1>Anecdote of the day</h1>
-      <div>{anecdotes[selected]}</div>
+      <Anecdote anecdote={anecdotes[selected]} votes={votes[selected]} />
       <Button handleClick={handleNextClick} text="Next anecdote" />
       <Button handleClick={handleVoteClick} text="Vote" />
       <h1>Anecdote with most votes</h1>
