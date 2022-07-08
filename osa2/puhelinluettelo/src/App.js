@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const Person = ({ key, name }) => {
-  console.log({ name });
   return <li key={key}>{name}</li>;
 };
 
@@ -11,6 +10,10 @@ const App = () => {
 
   const addNumber = (event) => {
     event.preventDefault();
+    if (persons.filter((person) => person.name == newName).length > 0) {
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
     const numberObject = {
       name: newName,
     };
