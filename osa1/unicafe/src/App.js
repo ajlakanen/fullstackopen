@@ -6,23 +6,28 @@ const Display = ({ text, counter, postfix }) => (
   </p>
 );
 
-const Statistics = ({ good, neutral, bad }) => (
-  <>
-    <Display text="good" counter={good}></Display>
-    <Display text="neutral" counter={neutral}></Display>
-    <Display text="bad" counter={bad}></Display>
-    <Display text="all" counter={good + neutral + bad}></Display>
-    <Display
-      text="avg"
-      counter={(good - bad) / (good + neutral + bad)}
-    ></Display>
-    <Display
-      text="positive"
-      counter={(good / (good + neutral + bad)) * 100}
-      postfix="%"
-    ></Display>
-  </>
-);
+const Statistics = ({ good, neutral, bad }) => {
+  if (good + neutral + bad === 0) {
+    return <p>No feedback given.</p>;
+  }
+  return (
+    <>
+      <Display text="good" counter={good}></Display>
+      <Display text="neutral" counter={neutral}></Display>
+      <Display text="bad" counter={bad}></Display>
+      <Display text="all" counter={good + neutral + bad}></Display>
+      <Display
+        text="avg"
+        counter={(good - bad) / (good + neutral + bad)}
+      ></Display>
+      <Display
+        text="positive"
+        counter={(good / (good + neutral + bad)) * 100}
+        postfix="%"
+      ></Display>
+    </>
+  );
+};
 
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
