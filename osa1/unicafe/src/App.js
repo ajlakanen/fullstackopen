@@ -1,9 +1,12 @@
 import { useState } from "react";
 
 const StatisticsLine = ({ text, counter, postfix }) => (
-  <p>
-    {text} {counter} {postfix}
-  </p>
+  <tr>
+    <td>{text}</td>
+    <td>
+      {counter} {postfix}
+    </td>
+  </tr>
 );
 
 const Statistics = ({ good, neutral, bad }) => {
@@ -11,24 +14,26 @@ const Statistics = ({ good, neutral, bad }) => {
     return <p>No feedback given.</p>;
   }
   return (
-    <>
-      <StatisticsLine text="good" counter={good}></StatisticsLine>
-      <StatisticsLine text="neutral" counter={neutral}></StatisticsLine>
-      <StatisticsLine text="bad" counter={bad}></StatisticsLine>
-      <StatisticsLine
-        text="all"
-        counter={good + neutral + bad}
-      ></StatisticsLine>
-      <StatisticsLine
-        text="avg"
-        counter={(good - bad) / (good + neutral + bad)}
-      ></StatisticsLine>
-      <StatisticsLine
-        text="positive"
-        counter={(good / (good + neutral + bad)) * 100}
-        postfix="%"
-      ></StatisticsLine>
-    </>
+    <table>
+      <tbody>
+        <StatisticsLine text="good" counter={good}></StatisticsLine>
+        <StatisticsLine text="neutral" counter={neutral}></StatisticsLine>
+        <StatisticsLine text="bad" counter={bad}></StatisticsLine>
+        <StatisticsLine
+          text="all"
+          counter={good + neutral + bad}
+        ></StatisticsLine>
+        <StatisticsLine
+          text="avg"
+          counter={(good - bad) / (good + neutral + bad)}
+        ></StatisticsLine>
+        <StatisticsLine
+          text="positive"
+          counter={(good / (good + neutral + bad)) * 100}
+          postfix="%"
+        ></StatisticsLine>
+      </tbody>
+    </table>
   );
 };
 
