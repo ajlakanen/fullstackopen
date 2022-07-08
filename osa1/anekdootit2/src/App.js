@@ -4,11 +4,10 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
-const MostVoted = ({ anecdotes, votes }) => {
+const MostVoted = ({ anecdotes, max }) => {
   return (
     <>
-      <p>{anecdotes}</p>
-      <p>{votes}</p>
+      <p>{max}</p>
     </>
   );
 };
@@ -31,16 +30,26 @@ const App = () => {
   const handleNextClick = (max) => {
     const newAnecdote = Math.floor(Math.random() * max);
     setSelected(newAnecdote);
+    console.log("selected", selected);
   };
 
   const handleVoteClick = () => {
+    console.log("selected", selected);
     const copy = { ...votes };
     copy[selected] += 1;
     setVotes(copy);
-    console.log("selected", selected);
-    console.log(copy);
-    console.log(votes);
+    console.log("copy", copy);
   };
+
+  const mostVotes = () => {
+    //let max = anecdotes[votes.indexOf(votes.max())];
+    //let max = votes.max();
+    console.log(votes);
+    console.log(Math.max(...votes));
+    return votes;
+  };
+
+  console.log("top level", votes);
 
   return (
     <>
@@ -52,6 +61,7 @@ const App = () => {
       />
       <Button handleClick={handleVoteClick} text="Vote" />
       <h1>Anecdote with most votes</h1>
+      <div>{votes}</div>
     </>
   );
 };
