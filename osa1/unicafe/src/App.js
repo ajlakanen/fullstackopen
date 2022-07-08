@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-const Display = ({ text, counter }) => (
+const Display = ({ text, counter, postfix }) => (
   <p>
-    {text} {counter}
+    {text} {counter} {postfix}
   </p>
 );
 
@@ -38,6 +38,16 @@ const App = () => {
       <Display text="good" counter={good}></Display>
       <Display text="neutral" counter={neutral}></Display>
       <Display text="bad" counter={bad}></Display>
+      <Display text="all" counter={good + neutral + bad}></Display>
+      <Display
+        text="avg"
+        counter={(good - bad) / (good + neutral + bad)}
+      ></Display>
+      <Display
+        text="positive"
+        counter={(good / (good + neutral + bad)) * 100}
+        postfix="%"
+      ></Display>
     </>
   );
 };
