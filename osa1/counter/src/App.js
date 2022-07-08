@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Display = ({ counter }) => <div>{counter}</div>;
+const Display = ({ counter }) => <>{counter}</>;
 
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
@@ -32,10 +32,10 @@ const App = () => {
   return (
     <>
       <div>
-        {left}
-        <button onClick={handleLeftClick}>left</button>
-        <button onClick={handleRightClick}>right</button>
-        {right}
+        <Display counter={left}></Display>
+        <Button handleClick={handleLeftClick} text="left"></Button>
+        <Button handleClick={handleRightClick} text="right"></Button>
+        <Display counter={right}></Display>
         <History allClicks={allClicks} />
       </div>
     </>
