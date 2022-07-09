@@ -10,7 +10,7 @@ const App = () => {
 
   const addNumber = (event) => {
     event.preventDefault();
-    if (persons.filter((person) => person.name == newName).length > 0) {
+    if (persons.filter((person) => person.name === newName).length > 0) {
       alert(`${newName} is already added to phonebook`);
       return;
     }
@@ -21,9 +21,7 @@ const App = () => {
     setNewName("");
   };
   const handleNumberChange = (event) => {
-    {
-      /*console.log(event.target.value);*/
-    }
+    /*console.log(event.target.value);*/
     setNewName(event.target.value);
   };
 
