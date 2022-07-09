@@ -9,14 +9,39 @@ const Filter = ({ value, onChange }) => {
   );
 };
 
-const Country = ({ country }) => {
+const Button = ({ onClick, text, isVisible }) => {
+  if (!isVisible) return <></>;
+  else return <button onClick={onClick}>{text}</button>;
+};
+
+const Country = ({ country, toShow, showHandler, isRemovable }) => {
+  if (!toShow) {
+    return (
+      <li key={country.cca2}>
+        {country.name.common} {country.cca2}{" "}
+        <Button
+          onClick={() => showHandler(country.cca2)}
+          text="Show"
+          isVisible={true}
+        />
+      </li>
+    );
+  }
+
   let languages = [];
   for (const key in country.languages) {
     languages.push(country.languages[key]);
   }
   return (
     <div>
-      <h1>{country.name.common}</h1>
+      <h1>
+        {country.name.common}{" "}
+        <Button
+          onClick={() => showHandler(country.cca2)}
+          text="Remove"
+          isVisible={isRemovable}
+        />
+      </h1>
       <p>Capital: {country.capital}</p>
       <p>Area: {country.area} km2</p>
       <h3>Languages:</h3>
@@ -31,17 +56,31 @@ const Country = ({ country }) => {
 };
 
 const Countries = ({ filter, countries }) => {
+  const [countriesToShow, setCountriesToShow] = useState([]);
+  const showHandler = (country) => {
+    if (countriesToShow.includes(country)) {
+      setCountriesToShow(countriesToShow.filter((c) => c !== country));
+    } else {
+      setCountriesToShow(countriesToShow.concat(country));
+    }
+  };
+
   if (countries.length > 10)
     return <p>Too many matches, specify another filter</p>;
   if (countries.length === 1) {
     const country = countries[0];
-    return <Country country={country} />;
+    return <Country country={country} toShow={true} isRemovable={false} />;
   }
   return (
     <ul>
       {countries.map((country) => (
         <li key={country.cca2}>
-          {country.name.common} {country.cca2}
+          <Country
+            country={country}
+            toShow={countriesToShow.includes(country.cca2)}
+            showHandler={showHandler}
+            isRemovable={true}
+          />
         </li>
       ))}
     </ul>
