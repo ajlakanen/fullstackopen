@@ -22,7 +22,7 @@ const Country = ({ country }) => {
       <h3>Languages:</h3>
       <ul>
         {languages.map((language) => (
-          <li>{language}</li>
+          <li key={language}>{language}</li>
         ))}
       </ul>
       <img src={country.flags.svg} width="200px" alt="asdf" />
