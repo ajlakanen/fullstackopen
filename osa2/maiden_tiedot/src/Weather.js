@@ -9,10 +9,6 @@ export const Weather = ({ country }) => {
   const lat = country.latlng[0];
   const lon = country.latlng[1];
   const api_key = process.env.REACT_APP_WEATHER_API_KEY;
-  console.log(lat, lon, api_key);
-  console.log(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`
-  );
 
   useEffect(() => {
     axios
@@ -20,7 +16,6 @@ export const Weather = ({ country }) => {
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`
       )
       .then((response) => {
-        console.log(response.data);
         setTemp(response.data.main.temp);
         setIcon(
           `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`

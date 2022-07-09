@@ -20,14 +20,12 @@ export const Countries = ({ filter, countries }) => {
   return (
     <ul>
       {countries.map((country) => (
-        <li key={country.cca2}>
-          <Country
-            country={country}
-            toShow={countriesToShow.includes(country.cca2)}
-            showHandler={showHandler}
-            isRemovable={true}
-          />
-        </li>
+        <Country
+          country={country}
+          toShow={countriesToShow.includes(country.cca2)}
+          showHandler={showHandler}
+          isRemovable={true}
+        />
       ))}
     </ul>
   );

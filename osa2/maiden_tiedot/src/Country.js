@@ -21,7 +21,7 @@ export const Country = ({ country, toShow, showHandler, isRemovable }) => {
   }
 
   return (
-    <div>
+    <li>
       <h1>
         {country.name.common}{" "}
         <Button
@@ -40,6 +40,6 @@ export const Country = ({ country, toShow, showHandler, isRemovable }) => {
       </ul>
       <img src={country.flags.svg} width="200px" alt="asdf" />
       <Weather country={country} />
-    </div>
+    </li>
   );
 };
