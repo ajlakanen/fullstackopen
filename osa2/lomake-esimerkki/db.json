@@ -33,13 +33,13 @@
     {
       "content": "1",
       "date": "2022-07-10T11:47:38.574Z",
-      "important": false,
+      "important": true,
       "id": 6
     },
     {
       "content": "3",
       "date": "2022-07-10T11:48:05.158Z",
-      "important": true,
+      "important": false,
       "id": 7
     },
     {
@@ -141,7 +141,7 @@
     {
       "content": "ffff",
       "date": "2022-07-11T13:44:51.402Z",
-      "important": true,
+      "important": false,
       "id": 24
     },
     {
@@ -195,7 +195,7 @@
     {
       "content": "faafafa",
       "date": "2022-07-11T13:46:51.131Z",
-      "important": true,
+      "important": false,
       "id": 33
     },
     {
