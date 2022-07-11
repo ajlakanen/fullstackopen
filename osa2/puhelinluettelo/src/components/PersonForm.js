@@ -5,7 +5,6 @@ export const PersonForm = ({
   newNumber,
   handleNumberChange,
 }) => {
-  console.log("hoi");
   return (
     <form onSubmit={onSubmit}>
       <div>
