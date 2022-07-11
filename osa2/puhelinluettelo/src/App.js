@@ -17,11 +17,29 @@ const App = () => {
     });
   }, []);
 
+  const modifyPhoneNumber = (person, newNumber) => {
+    const changedPerson = { ...person, number: newNumber };
+    personsService
+      .update(person.id, changedPerson)
+      .then((returnedPerson) => {
+        setPersons(
+          persons.map((p) => (p.id !== person.id ? person : returnedPerson))
+        );
+      })
+      .catch((error) => {
+        alert(`Person '${person.name}' was already deleted from server`);
+        setPersons(persons.filter((p) => p.id !== person.id));
+      });
+  };
+
   const addPerson = (event) => {
     event.preventDefault();
-    if (persons.filter((person) => person.name === newName).length > 0) {
-      alert(`${newName} is already added to phonebook`);
-      return;
+    const existing = persons.filter((person) => person.name === newName);
+    if (existing.length > 0) {
+      if (window.confirm(`Replace ${newName} phone number?`)) {
+        modifyPhoneNumber(existing[0], newNumber);
+        return;
+      }
     }
     const personObject = {
       name: newName,
@@ -56,7 +74,6 @@ const App = () => {
   };
 
   const handleDeleteClick = ({ person }) => {
-    console.log(person);
     if (window.confirm(`Delete ${person.name}`)) {
       personsService.deletePerson(person.id).then((response) => {
         setPersons(persons.filter((p) => p.id !== person.id));
