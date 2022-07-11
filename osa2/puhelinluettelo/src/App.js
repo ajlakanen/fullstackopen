@@ -97,7 +97,15 @@ const App = () => {
 
       <h2>Numbers</h2>
       {/* <Persons newFilter={newFilter} personsToShow={personsToShow} /> */}
-      <p>{newFilter.length === 0 ? <></> : <span>Filter in use</span>}</p>
+      <p>
+        {newFilter.length === 0 ? (
+          <></>
+        ) : personsToShow.length === 0 ? (
+          <>No results</>
+        ) : (
+          <span>Filter in use</span>
+        )}
+      </p>
       <ul>
         {personsToShow.map((person) => (
           <li key={person.id}>
