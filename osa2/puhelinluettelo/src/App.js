@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { PersonForm } from "./components/PersonForm";
 import { Person } from "./components/Person";
 import { Filter } from "./components/Filter";
+import { Notification } from "./components/Notification";
 import personsService from "./services/persons";
 
 const App = () => {
@@ -10,6 +10,10 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [notification, setNotification] = useState({
+    message: "Message",
+    style: "success",
+  });
 
   useEffect(() => {
     personsService.getAll().then((initialPersons) => {
@@ -23,8 +27,16 @@ const App = () => {
       .update(person.id, changedPerson)
       .then((returnedPerson) => {
         setPersons(
-          persons.map((p) => (p.id !== person.id ? person : returnedPerson))
+          persons.map((p) => (p.id !== person.id ? p : returnedPerson))
         );
+      })
+      .then(() => {
+        setNotification({ message: "Number changed", style: "info" });
+      })
+      .then(() => {
+        setTimeout(() => {
+          setNotification({ message: null });
+        }, 5000);
       })
       .catch((error) => {
         alert(`Person '${person.name}' was already deleted from server`);
@@ -39,26 +51,33 @@ const App = () => {
       if (window.confirm(`Replace ${newName} phone number?`)) {
         modifyPhoneNumber(existing[0], newNumber);
         return;
+        // TODO: What happens when user presses cancel?
       }
     }
     const personObject = {
       name: newName,
       number: newNumber,
     };
-    personsService.create(personObject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-      setNewName("");
-      setNewNumber("");
-    });
+    personsService
+      .create(personObject)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        setNewName("");
+        setNewNumber("");
+        setNotification({ message: "New person added", style: "success" });
+      })
+      .then(() => {
+        setTimeout(() => {
+          setNotification({ message: null });
+        }, 5000);
+      });
   };
 
   const handleNameChange = (event) => {
-    /*console.log(event.target.value);*/
     setNewName(event.target.value);
   };
 
   const handleNumberChange = (event) => {
-    /*console.log(event.target.value);*/
     setNewNumber(event.target.value);
   };
 
@@ -75,15 +94,29 @@ const App = () => {
 
   const handleDeleteClick = ({ person }) => {
     if (window.confirm(`Delete ${person.name}`)) {
-      personsService.deletePerson(person.id).then((response) => {
-        setPersons(persons.filter((p) => p.id !== person.id));
-      });
+      personsService
+        .deletePerson(person.id)
+        .then((response) => {
+          setPersons(persons.filter((p) => p.id !== person.id));
+        })
+        .then(() => {
+          setNotification({
+            message: "Person deleted",
+            style: "info",
+          });
+        })
+        .then(() => {
+          setTimeout(() => {
+            setNotification({ message: null });
+          }, 5000);
+        });
     }
   };
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <Notification message={notification.message} style={notification.style} />
       <Filter value={newFilter} onChange={handleFilterChange} />
 
       <h2>Add new person</h2>
