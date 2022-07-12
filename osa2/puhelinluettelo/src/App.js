@@ -11,8 +11,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
   const [notification, setNotification] = useState({
-    message: "Message",
-    style: "success",
+    message: null,
+    style: "",
   });
 
   useEffect(() => {
@@ -39,8 +39,16 @@ const App = () => {
         }, 5000);
       })
       .catch((error) => {
-        alert(`Person '${person.name}' was already deleted from server`);
+        setNotification({
+          message: `Person '${person.name}' was already deleted from server`,
+          style: "error",
+        });
         setPersons(persons.filter((p) => p.id !== person.id));
+      })
+      .then(() => {
+        setTimeout(() => {
+          setNotification({ message: null });
+        }, 5000);
       });
   };
 
