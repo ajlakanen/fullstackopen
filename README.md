@@ -1,10 +1,3 @@
-# fullstackopen
-fullstackopen
+# Full Stack Open, parts 0-2
 
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
+My solutions ``as is.''
